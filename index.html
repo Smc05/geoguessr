@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoGuessr - Guess the Location!</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Main Menu Screen -->
+    <div id="main-menu" class="screen active">
+        <div class="menu-container">
+            <h1 class="game-title">GeoGuessr</h1>
+            <p class="game-subtitle">Explore the world and guess locations!</p>
+            <div class="menu-buttons">
+                <button id="start-game-btn" class="btn btn-primary">Start New Game</button>
+                <button id="instructions-btn" class="btn btn-secondary">How to Play</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instructions Screen -->
+    <div id="instructions-screen" class="screen">
+        <div class="instructions-container">
+            <h2>How to Play</h2>
+            <div class="instructions-content">
+                <ol>
+                    <li>You'll be shown a random location in Google Street View</li>
+                    <li>Explore the area by navigating around and looking at your surroundings</li>
+                    <li>Use the compass at the top to see which direction you're facing</li>
+                    <li>When you think you know where you are, click on the world map to place your guess</li>
+                    <li>Click "Make Guess" to submit your answer</li>
+                    <li>You'll earn points based on how close your guess is to the actual location</li>
+                    <li>Play 5 rounds and try to get the highest score possible!</li>
+                </ol>
+                <h3>Scoring:</h3>
+                <ul>
+                    <li>Perfect guess (&lt; 1km): 5000 points</li>
+                    <li>Very close (&lt; 10km): 4000+ points</li>
+                    <li>Close (&lt; 100km): 3000+ points</li>
+                    <li>Far (&lt; 1000km): 1000+ points</li>
+                    <li>Very far (&gt; 5000km): 0 points</li>
+                </ul>
+            </div>
+            <button id="back-to-menu-btn" class="btn btn-primary">Back to Menu</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <!-- Compass -->
+        <div id="compass-container">
+            <div id="compass">
+                <div id="compass-arrow"></div>
+                <div class="compass-direction">N</div>
+            </div>
+        </div>
+
+        <!-- Game Info Bar -->
+        <div id="game-info">
+            <div id="round-counter">Round 1/5</div>
+            <div id="score-display">Score: 0</div>
+        </div>
+
+        <!-- Street View Container -->
+        <div id="street-view"></div>
+
+        <!-- Map Container (initially hidden) -->
+        <div id="map-container" class="collapsed">
+            <button id="toggle-map-btn" class="btn btn-map">
+                <span class="expand-text">📍 Open Map</span>
+                <span class="collapse-text">✕ Close Map</span>
+            </button>
+            <div id="guess-map"></div>
+            <button id="make-guess-btn" class="btn btn-primary" disabled>Make Guess</button>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="active">
+            <div class="loading-spinner"></div>
+            <p>Loading location...</p>
+        </div>
+    </div>
+
+    <!-- Round Result Screen -->
+    <div id="result-screen" class="screen">
+        <div class="result-container">
+            <h2>Round Complete!</h2>
+            <div class="result-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Distance:</span>
+                    <span id="result-distance" class="stat-value">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Points Earned:</span>
+                    <span id="result-points" class="stat-value">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Score:</span>
+                    <span id="result-total-score" class="stat-value">-</span>
+                </div>
+            </div>
+            <div id="result-map"></div>
+            <button id="next-round-btn" class="btn btn-primary">Next Round</button>
+        </div>
+    </div>
+
+    <!-- Final Score Screen -->
+    <div id="final-screen" class="screen">
+        <div class="final-container">
+            <h2>Game Complete!</h2>
+            <div class="final-score">
+                <span class="final-score-label">Final Score:</span>
+                <span id="final-score-value" class="final-score-value">0</span>
+            </div>
+            <div id="rounds-breakdown">
+                <h3>Round Breakdown:</h3>
+                <div id="rounds-list"></div>
+            </div>
+            <button id="play-again-btn" class="btn btn-primary">Play Again</button>
+            <button id="main-menu-btn" class="btn btn-secondary">Main Menu</button>
+        </div>
+    </div>
+
+    <!-- API Key Warning (shown if no API key) -->
+    <div id="api-key-warning" class="warning-overlay" style="display: none;">
+        <div class="warning-content">
+            <h2>⚠️ Google Maps API Key Required</h2>
+            <p>Please add your Google Maps API key to use this application.</p>
+            <p>Follow the instructions in the README.md file to set up your API key.</p>
+            <button id="dismiss-warning-btn" class="btn btn-primary">OK</button>
+        </div>
+    </div>
+
+    <!-- Load JavaScript files -->
+    <script src="js/locations.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html>
