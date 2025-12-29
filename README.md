@@ -75,6 +75,12 @@ A fully functional GeoGuessr game clone built with HTML5, CSS3, and vanilla Java
    ```javascript
    const GOOGLE_MAPS_API_KEY = 'AIzaSyAbc123...'; // Your actual key
    ```
+   
+   **⚠️ Security Note:** 
+   - For production use, consider implementing a backend proxy to hide your API key
+   - Never commit your actual API key to public repositories
+   - Use API key restrictions (HTTP referrers, API restrictions) as shown above
+   - Monitor your API usage in Google Cloud Console
 
 3. **Run the application**
    - Simply open `index.html` in a web browser, or

@@ -14,6 +14,19 @@ let currentHeading = 0;
 // Google Maps API Key - Replace with your own key
 const GOOGLE_MAPS_API_KEY = 'YOUR_API_KEY_HERE';
 
+// Scoring constants
+const SCORE_PERFECT = 5000;
+const SCORE_VERY_CLOSE_BASE = 5000;
+const SCORE_CLOSE_BASE = 4000;
+const SCORE_MEDIUM_BASE = 3000;
+const SCORE_FAR_BASE = 1000;
+
+const DISTANCE_PERFECT = 1000;        // < 1km
+const DISTANCE_VERY_CLOSE = 10000;    // < 10km
+const DISTANCE_CLOSE = 100000;        // < 100km
+const DISTANCE_MEDIUM = 1000000;      // < 1000km
+const DISTANCE_FAR = 5000000;         // < 5000km
+
 /**
  * Dynamically loads Google Maps API
  */
@@ -307,7 +320,7 @@ function formatDistance(meters) {
  * Calculates score based on distance
  */
 function calculateScore(distance) {
-    // Scoring algorithm:
+    // Scoring algorithm using constants:
     // Perfect (< 1km): 5000 points
     // Very close (< 10km): 4000+ points
     // Close (< 100km): 3000+ points
@@ -315,16 +328,16 @@ function calculateScore(distance) {
     // Far (< 5000km): 100+ points
     // Very far (>= 5000km): 0 points
 
-    if (distance < 1000) {
-        return 5000;
-    } else if (distance < 10000) {
-        return Math.round(5000 - (distance / 10));
-    } else if (distance < 100000) {
-        return Math.round(4000 - (distance / 100));
-    } else if (distance < 1000000) {
-        return Math.round(3000 - (distance / 500));
-    } else if (distance < 5000000) {
-        return Math.round(1000 - (distance / 5000));
+    if (distance < DISTANCE_PERFECT) {
+        return SCORE_PERFECT;
+    } else if (distance < DISTANCE_VERY_CLOSE) {
+        return Math.round(SCORE_VERY_CLOSE_BASE - (distance / 10));
+    } else if (distance < DISTANCE_CLOSE) {
+        return Math.round(SCORE_CLOSE_BASE - (distance / 100));
+    } else if (distance < DISTANCE_MEDIUM) {
+        return Math.round(SCORE_MEDIUM_BASE - (distance / 500));
+    } else if (distance < DISTANCE_FAR) {
+        return Math.round(SCORE_FAR_BASE - (distance / 5000));
     } else {
         return 0;
     }

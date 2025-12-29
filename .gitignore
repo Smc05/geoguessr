@@ -1,0 +1,27 @@
+# Dependencies and build artifacts
+node_modules/
+dist/
+build/
+
+# Environment and config files
+.env
+.env.local
+config.local.js
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Optional: Uncomment to ignore local API key (if you create a separate config file)
+# js/config.local.js

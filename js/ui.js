@@ -36,6 +36,13 @@ function showNotification(message, type = 'info') {
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
     
+    // Define notification colors
+    const notificationColors = {
+        error: '#e74c3c',
+        success: '#27ae60',
+        info: '#667eea'
+    };
+    
     // Style the notification
     Object.assign(notification.style, {
         position: 'fixed',
@@ -43,7 +50,7 @@ function showNotification(message, type = 'info') {
         right: '20px',
         padding: '15px 25px',
         borderRadius: '10px',
-        backgroundColor: type === 'error' ? '#e74c3c' : type === 'success' ? '#27ae60' : '#667eea',
+        backgroundColor: notificationColors[type] || notificationColors.info,
         color: 'white',
         fontWeight: '600',
         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
@@ -59,7 +66,9 @@ function showNotification(message, type = 'info') {
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.3s ease-out';
         setTimeout(() => {
-            document.body.removeChild(notification);
+            if (notification.parentNode) {
+                document.body.removeChild(notification);
+            }
         }, 300);
     }, 3000);
 }
@@ -278,14 +287,18 @@ function celebrateHighScore() {
         const endY = window.innerHeight + 10;
         const endX = parseFloat(confetti.style.left) + (Math.random() - 0.5) * 200;
         
-        confetti.animate([
+        const animation = confetti.animate([
             { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
             { transform: `translate(${endX - parseFloat(confetti.style.left)}px, ${endY}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
         ], {
             duration: duration,
             easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-        }).onfinish = () => {
-            document.body.removeChild(confetti);
+        });
+        
+        animation.onfinish = () => {
+            if (confetti.parentNode) {
+                document.body.removeChild(confetti);
+            }
         };
     }
 }
