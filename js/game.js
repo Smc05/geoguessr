@@ -19,15 +19,15 @@ const gameState = {
  * Initializes the game
  */
 async function initGame() {
+    // Set up event listeners first (these work without API key)
+    setupEventListeners();
+    
     try {
         // Try to load Google Maps API
         await loadGoogleMapsAPI();
         
         // Initialize guess map
         initializeGuessMap();
-        
-        // Set up event listeners
-        setupEventListeners();
         
     } catch (error) {
         console.error('Failed to initialize game:', error);
