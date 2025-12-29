@@ -67,7 +67,7 @@ function showNotification(message, type = 'info') {
         notification.style.animation = 'slideOutRight 0.3s ease-out';
         setTimeout(() => {
             if (notification.parentNode) {
-                document.body.removeChild(notification);
+                notification.remove();
             }
         }, 300);
     }, 3000);
@@ -251,7 +251,7 @@ function showTooltip(elementId, message, duration = 2000) {
         tooltip.style.animation = 'fadeOut 0.2s ease-out';
         setTimeout(() => {
             if (tooltip.parentNode) {
-                document.body.removeChild(tooltip);
+                tooltip.remove();
             }
         }, 200);
     }, duration);
@@ -297,7 +297,7 @@ function celebrateHighScore() {
         
         animation.onfinish = () => {
             if (confetti.parentNode) {
-                document.body.removeChild(confetti);
+                confetti.remove();
             }
         };
     }

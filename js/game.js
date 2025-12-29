@@ -122,8 +122,8 @@ async function startRound() {
     } catch (error) {
         console.error('Failed to load Street View:', error);
         showLoadingOverlay(false);
-        alert('Failed to load location. Please try again.');
-        showMainMenu();
+        showNotification('Failed to load location. Please try again.', 'error');
+        setTimeout(() => showMainMenu(), 2000);
     }
 }
 
@@ -144,7 +144,7 @@ function makeGuess() {
     const guessPosition = getGuessPosition();
     
     if (!guessPosition) {
-        alert('Please place a marker on the map first!');
+        showNotification('Please place a marker on the map first!', 'info');
         return;
     }
     

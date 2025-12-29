@@ -12,6 +12,9 @@ let currentPanorama = null;
 let currentHeading = 0;
 
 // Google Maps API Key - Replace with your own key
+// ⚠️ SECURITY WARNING: This API key is exposed in client-side code.
+// For production use, implement a backend proxy to protect your API key.
+// Always use API key restrictions (HTTP referrers) in Google Cloud Console.
 const GOOGLE_MAPS_API_KEY = 'YOUR_API_KEY_HERE';
 
 // Scoring constants
@@ -26,6 +29,12 @@ const DISTANCE_VERY_CLOSE = 10000;    // < 10km
 const DISTANCE_CLOSE = 100000;        // < 100km
 const DISTANCE_MEDIUM = 1000000;      // < 1000km
 const DISTANCE_FAR = 5000000;         // < 5000km
+
+// Scoring divisors for calculating point deductions
+const DIVISOR_VERY_CLOSE = 10;
+const DIVISOR_CLOSE = 100;
+const DIVISOR_MEDIUM = 500;
+const DIVISOR_FAR = 5000;
 
 /**
  * Dynamically loads Google Maps API
@@ -331,13 +340,13 @@ function calculateScore(distance) {
     if (distance < DISTANCE_PERFECT) {
         return SCORE_PERFECT;
     } else if (distance < DISTANCE_VERY_CLOSE) {
-        return Math.round(SCORE_VERY_CLOSE_BASE - (distance / 10));
+        return Math.round(SCORE_VERY_CLOSE_BASE - (distance / DIVISOR_VERY_CLOSE));
     } else if (distance < DISTANCE_CLOSE) {
-        return Math.round(SCORE_CLOSE_BASE - (distance / 100));
+        return Math.round(SCORE_CLOSE_BASE - (distance / DIVISOR_CLOSE));
     } else if (distance < DISTANCE_MEDIUM) {
-        return Math.round(SCORE_MEDIUM_BASE - (distance / 500));
+        return Math.round(SCORE_MEDIUM_BASE - (distance / DIVISOR_MEDIUM));
     } else if (distance < DISTANCE_FAR) {
-        return Math.round(SCORE_FAR_BASE - (distance / 5000));
+        return Math.round(SCORE_FAR_BASE - (distance / DIVISOR_FAR));
     } else {
         return 0;
     }
